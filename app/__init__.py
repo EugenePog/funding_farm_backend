@@ -10,15 +10,15 @@ __author__ = "Evgeniy"
 import logging
 import sys
 import os
-from app.config import settings
+from app.config import configuration
 
 # Setup internal logging
 # Create the folder if it doesn't exist
-if not os.path.exists(settings.LOG_FOLDER):
-    os.makedirs(settings.LOG_FOLDER)
+if not os.path.exists(configuration.LOG_FOLDER):
+    os.makedirs(configuration.LOG_FOLDER)
 
 # Full path for the log file
-log_file_path = os.path.join(settings.LOG_FOLDER, settings.LOG_FILE)
+log_file_path = os.path.join(configuration.LOG_FOLDER, configuration.LOG_FILE)
 
 # Configure logging
 logging.basicConfig(
