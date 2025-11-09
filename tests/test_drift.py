@@ -21,13 +21,13 @@ MARKETS = {
 async def get_funding_for_market(drift_client, connection, market_id, market_name):
     """Get funding rate for a single market"""
     try:
-        print(f"\n📊 Fetching {market_name}...")
+        print(f"\nFetching {market_name}...")
         
         # Get market data (no subscription needed)
         market = await get_perp_market_account(drift_client.program, market_id)
         
         if market is None:
-            print(f"   ❌ Market {market_id} not found")
+            print(f"Market {market_id} not found")
             return None
         
         # Get oracle price
@@ -57,12 +57,12 @@ async def get_funding_for_market(drift_client, connection, market_id, market_nam
             "mark_price": mark_price / QUOTE_PRECISION,
         }
         
-        print(f"   ✅ Long: {result['long_rate']:+.4f}%  Price: ${result['oracle_price']:,.2f}")
+        print(f"Long: {result['long_rate']:+.4f}%  Price: ${result['oracle_price']:,.2f}")
         
         return result
         
     except Exception as e:
-        print(f"   ❌ Error: {e}")
+        print(f"Error: {e}")
         return None
 
 async def main():
@@ -104,7 +104,7 @@ async def main():
         
         # Print summary
         print("\n" + "=" * 70)
-        print("📈 SUMMARY")
+        print("SUMMARY")
         print("=" * 70)
         
         for r in results:
@@ -114,11 +114,11 @@ async def main():
                   f"Price: ${r['oracle_price']:,.2f}")
         
         print("\n" + "=" * 70)
-        print(f"✅ Successfully fetched {len(results)}/{len(MARKETS)} markets")
+        print(f"Successfully fetched {len(results)}/{len(MARKETS)} markets")
         print("=" * 70)
         
     except Exception as e:
-        print(f"\n❌ Test failed: {e}")
+        print(f"\nTest failed: {e}")
         import traceback
         traceback.print_exc()
     
