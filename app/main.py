@@ -1,6 +1,12 @@
 from app import configuration
 from app import logger
 import json
+from app.service.drift_funding_collector import drift_collector
+
+async def collect_drift_funding_job():
+    results = await drift_collector.get_all_funding_rates()
+
+    return results
 
 if __name__ == "__main__":
     try:
@@ -12,6 +18,10 @@ if __name__ == "__main__":
 
             for i in range(api_num):
                 print(f"api: {i}")
+
+            results = collect_drift_funding_job()
+
+            print(f"{results}")
 
     except FileNotFoundError:
         logger.error(f"Settings file not found: {configuration.SETTINGS_FILE_PATH}")

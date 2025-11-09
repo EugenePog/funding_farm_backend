@@ -1,1 +1,7 @@
 logging
+driftpy
+anchorpy
+solana
+solders
+fastapi
+dotenv
