@@ -69,8 +69,6 @@ async def main():
 
     # Load .env file
     load_dotenv()
-
-    # Now this works
     rpc_url = os.getenv("RPC_URL")
 
     connection = None
@@ -110,6 +108,7 @@ async def main():
         for r in results:
             print(f"\n{r['market_name']:12} | "
                   f"Long: {r['long_rate']:+.4f}% | "
+                  f"Short: {r['short_rate']:+.4f}% | "
                   f"24h Avg: {r['last_24h_avg']:+.4f}% | "
                   f"Price: ${r['oracle_price']:,.2f}")
         

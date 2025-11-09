@@ -54,12 +54,15 @@ class DriftFundingCollector:
         # Load .env file
         load_dotenv()
         
-        self.rpc_url = rpc_url or os.getenv("RPC_URL", "https://mainnet.helius-rpc.com/?api-key=4511aa71-d8c5-4117-845e-ffe03764b27f")
+        self.rpc_url = rpc_url or os.getenv("RPC_URL")
         self.connection = None
         self.drift_client = None
     
     async def initialize(self):
         """Initialize connection and Drift client"""
+        if self.rpc_url is None:
+            logger.error("RPC_URL is empty")
+        
         if self.connection is None:
             logger.info("Initializing Drift connection...")
             self.connection = AsyncClient(self.rpc_url)
@@ -68,13 +71,10 @@ class DriftFundingCollector:
                 Wallet.dummy(),  # For rates collection read-only type is enought
                 "mainnet"
             )
-            await self.drift_client.subscribe()
             logger.info("Drift client initialized")
     
     async def close(self):
         """Close connections"""
-        if self.drift_client:
-            await self.drift_client.unsubscribe()
         if self.connection:
             await self.connection.close()
         logger.info("Drift connection closed")
